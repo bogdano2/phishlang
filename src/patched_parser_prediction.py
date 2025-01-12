@@ -101,31 +101,21 @@ def load_model_and_tokenizer(model_dir):
     return model, tokenizer
 
 def predict_with_sliding_window(model, tokenizer, text, window_size, stride):
-    tokens = tokenizer(text, return_tensors="pt", padding=True, truncation=True).input_ids.squeeze()
-    total_tokens = tokens.size(0)
-    max_phishing_prob = 0.0
+    # Tokenize with truncation to ensure we don't exceed max length
+    encoded = tokenizer(text, return_tensors="pt", padding=True, truncation=True, max_length=window_size)
+    inputs = {
+        'input_ids': encoded['input_ids'],
+        'attention_mask': encoded['attention_mask']
+    }
+    
+    with torch.no_grad():
+        outputs = model(**inputs)
+    probabilities = torch.softmax(outputs.logits, dim=-1)
+    phishing_prob = probabilities[0, 1].item()
 
-    # Sliding window approach
-    for i in range(0, total_tokens, stride):
-        window = tokens[i:i+window_size]
-        if window.size(0) < window_size:
-            break  # Ensures the window size matches the required size
-        
-        inputs = tokenizer.decode(window, skip_special_tokens=True)
-        inputs = tokenizer(inputs, return_tensors="pt", padding=True, truncation=True)
-        
-        with torch.no_grad():
-            outputs = model(**inputs)
-        probabilities = torch.softmax(outputs.logits, dim=-1)
-        phishing_prob = probabilities[0, 1].item()
-
-        # Update max phishing probability
-        if phishing_prob > max_phishing_prob:
-            max_phishing_prob = phishing_prob
-
-    # Determine prediction based on maximum phishing probability
-    prediction = "phishing" if max_phishing_prob > 0.5 else "benign"
-    return prediction, max_phishing_prob
+    # Determine prediction based on phishing probability
+    prediction = "phishing" if phishing_prob > 0.5 else "benign"
+    return prediction, phishing_prob
 
 def main():
     model_dir = './model'  # Updated to 'model'

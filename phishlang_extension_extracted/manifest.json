@@ -1,0 +1,38 @@
+{
+	"manifest_version": 3,
+	"name": "Maverick Safe AI",
+	"version": "2.4",
+	"description": "Maverick Safe AI - Advanced web safety powered by artificial intelligence",
+	"permissions": [
+		"declarativeNetRequest",
+		"declarativeNetRequestFeedback",
+		"tabs",
+		"activeTab",
+		"scripting",
+		"storage",
+		"unlimitedStorage"
+	],
+	"host_permissions": [
+		"https://*/*",
+		"http://*/*",
+		"http://localhost/*"
+	],
+	"background": {
+		"service_worker": "src/service-worker.js",
+		"type": "module"
+	},
+	"action": {
+		"default_popup": "public/popup.html"
+	},
+	"content_security_policy": {
+		"extension_pages": "script-src 'self'; object-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com"
+	},
+	"web_accessible_resources": [{
+		"resources": ["public/phishing.html", "public/dist.css", "src/utils.js", "public/phishing.js"],
+		"matches": ["<all_urls>"]
+	}],
+	"icons": {
+		"64": "icons/icon64.png",
+		"128": "icons/icon128.png"
+	}
+}

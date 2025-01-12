@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Maverick Safe AI - Security Warning</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="dist.css">
+</head>
+<body>
+	<div class="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-gray-50 font-sansInter" id="freephishing-warning-page">
+	<div class="inline-flex flex-row items-start gap-8 p-24">
+		<div class="inline-flex rounded-2xl bg-red-500 p-4 text-white">
+			<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-shield-x">
+				<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+				<path d="M12 3a12 12 0 0 0 8.5 3a12 12 0 0 1 -8.5 15a12 12 0 0 1 -8.5 -15a12 12 0 0 0 8.5 -3" />
+				<path d="M10 10l4 4m0 -4l-4 4" />
+			</svg>
+		</div>
+		<div class="flex flex-col gap-4">
+			<header class="flex flex-col items-start gap-2">
+				<h1 class="text-3xl font-medium text-red-500">Security Warning</h1>
+				<span class="flex flex-row gap-1 text-gray-500">
+					<span>Reported URL:</span>
+					<span class="truncate" id="reported-url"></span>
+				</span>
+			</header>
+			<div class="flex flex-col gap-2">
+				<p class="max-w-[80ch] text-lg">
+					This website has been detected as unsafe by Maverick Safe AI. <br>
+					For your security, we recommend not proceeding further. This site may attempt to steal your information or harm your device.
+				</p>
+			</div>
+			<section class="mt-4 flex flex-col gap-4" id="blocklist-reasons">
+				<details open class="rounded-md bg-gray-100 p-4">
+					<summary class="flex justify-between cursor-pointer">
+						<h2 class="text-lg">Learn more: why was this site flagged?</h2>
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-selector">
+						<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+						<path d="M8 9l4 -4l4 4" />
+						<path d="M16 15l-4 4l-4 -4" />
+					</svg>
+					</summary>
+					<div class="mt-4 flex flex-col gap-4">
+						<p>
+							Maverick Safe AI uses advanced machine learning to analyze websites for security threats. This site was flagged for one or more of the following reasons:
+						</p>
+						<ul id="reasons-list" class="list-disc ml-6 flex flex-col gap-2">
+							<li>Impersonation of legitimate services</li>
+							<li>Suspicious data collection</li>
+							<li>Deceptive website behavior</li>
+							<li>Known malicious patterns</li>
+							<li>Potential security risks</li>
+						</ul>
+					</div>
+				</details>
+			</section>
+			<footer class="mt-8 flex flex-row justify-end gap-4">
+				<button id="back-to-safety" class="h-16 rounded-xl bg-red-500 px-8 text-lg font-semibold text-white shadow-lg transition-all duration-200 hover:bg-red-600 hover:shadow-red-200 active:bg-red-700 active:shadow-inner flex items-center justify-center gap-3">
+					<div class="flex items-center gap-3 px-4">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-back-up">
+							<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+							<path d="M9 13l-4 -4l4 -4m-4 4h11a4 4 0 0 1 0 8h-1" />
+						</svg>
+						Back to Safety
+					</div>
+				</button>
+			</footer>
+		</div>
+	</div>
+	</div>
+	<script src="../src/utils.js" type="module"></script>
+	<script src="phishing.js"></script>
+</body>
+</html>
